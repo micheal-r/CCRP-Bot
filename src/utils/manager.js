@@ -143,4 +143,33 @@ module.exports = class Manager {
       return { err: "yes" };
     }
   }
+
+  static async unmute(interaction, target, reason, moderator) {
+    try {
+      const targetMember = await interaction.guild.members.fetch(target);
+      const count = await Moderations.countDocuments();
+
+      const id = count + 1;
+
+      await targetMember.timeout(null, reason).catch((err) => console.error("Error while unmuting this user.", err));
+
+      const newUnmute = new Moderations({
+        target: target,
+        reason: reason,
+        moderator: moderator,
+        case: id,
+        type: "Mute",
+      });
+
+      await newUnmute.save();
+
+      return {
+        err: "no",
+        case: id,
+      };
+    } catch (e) {
+      console.error('Error in Manager.unmute:', e);
+      return { err: "yes" };
+    }
+  }
 };

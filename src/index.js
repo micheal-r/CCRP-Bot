@@ -7,9 +7,13 @@ const fs = require("fs");
 const readline = require("readline");
 const moment = require("moment");
 const chalk = require("chalk");
+const modmail = require('./utils/modmail');
 function startHexalon() {
   const client = new Bot();
+
   client.connect(process.env.TOKEN);
+  modmail(client);
+
   client.setMaxListeners(100);
 }
 

@@ -5,6 +5,9 @@ const path = require('path')
 
 module.exports = async (client, interaction) => {
     if (!interaction.type === InteractionType.ApplicationCommand) return;
+    if (!interaction.guild) {
+      interaction.reply({ content: 'Please use this command in the CCRP server.', ephemeral:true });
+    }
     const command = client.slashCommands.get(interaction.commandName);
         if (!command) return;
     if (command.staffOnly === true) {

@@ -8,6 +8,7 @@ const cooldown = []
 module.exports = async (client, message) => {
 
     if (message.author.bot) return;
+    if (!message.guild) return;
 
     const prefix = config.prefix
     const prefixRegex = new RegExp(`^(<@${client.user.id}>|\\${prefix})\\s*`);

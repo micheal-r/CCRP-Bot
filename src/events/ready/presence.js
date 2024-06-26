@@ -3,10 +3,11 @@ const { ActivityType, setActivity} = require('discord.js')
 
 module.exports = async (client) => {
 try {
+  const userCount = client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);
     client.user.setStatus('online');
     let status = [
         {
-          name: 'over CCRP',
+          name: `over ${userCount} members`,
           type:  ActivityType.Watching,
         },
     ];
